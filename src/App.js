@@ -5,7 +5,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiResponse: ""
+      apiResponse: "",
+      answerFeedback: ""
     };
     this.input = React.createRef();
     this.form = React.createRef();
@@ -34,13 +35,20 @@ export default class App extends React.Component {
   }
 
   correctAnswer() {
-    console.log("Correct!");
+    this.setState({
+      answerFeedback: "Correct!"
+    });
     this.form.current.reset();
     this.callAPI();
+
+    // if apiResponse.alphabet === prev.apiResponse.alphabet 
+    // callAPI()
   }
 
   incorrectAnswer() {
-    console.log("Incorrect answer, try again :)");
+    this.setState({
+      answerFeedback: "Incorrect answer, try again :)"
+    });
     this.form.current.reset();
   }
 
@@ -55,6 +63,7 @@ export default class App extends React.Component {
             <input type="text" ref={this.input} />
             <input type="submit" value="submit" />
           </form>
+          <p>{this.state.answerFeedback}</p>
         </header>
       </div>
     );
