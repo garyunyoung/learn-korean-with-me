@@ -1,14 +1,31 @@
 var express = require("express");
 var router = express.Router();
 
-const words = ["one", "two", "three", "four"];
+const alphabet = [
+  {
+    character: "ᄈ",
+    hanguel: "bb"
+  },
+  {
+    character: "ᄊ",
+    hanguel: "ss"
+  },
+  {
+    character: "ᅡ",
+    hanguel: "a"
+  },
+  {
+    character: "ᄅ",
+    hanguel: "r/l"
+  }
+];
 
-function randomWord() {
-  return words[Math.floor(Math.random() * (words.length - 1))];
+function randomCharacter() {
+  return alphabet[Math.floor(Math.random() * (alphabet.length - 1))];
 }
 
 router.get("/", function(req, res, next) {
-  res.send(randomWord());
+  res.send(randomCharacter());
 });
 
 module.exports = router;

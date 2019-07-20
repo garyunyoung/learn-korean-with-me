@@ -4,12 +4,15 @@ import "./App.scss";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: "" };
+    this.state = {
+      apiResponse: ""
+
+    };
   }
 
   callAPI() {
     fetch("http://localhost:9000/testAPI")
-      .then(res => res.text())
+      .then(res => res.json())
       .then(res => this.setState({ apiResponse: res }));
   }
 
@@ -17,7 +20,8 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>word: {this.state.apiResponse}</p>
+          <p>character: {this.state.apiResponse.character}</p>
+          <p>hanguel: {this.state.apiResponse.hanguel}</p>
           <button onClick={() => this.callAPI()}>fetch</button>
         </header>
       </div>
