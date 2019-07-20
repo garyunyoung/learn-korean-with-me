@@ -24,7 +24,7 @@ export default class App extends React.Component {
     fetch("http://localhost:9000/testAPI")
       .then(res => res.json())
       .then(res => {
-        if (this.state.apiResponse.character === res.character) {
+        if (this.state.apiResponse.hanguel === res.hanguel) {
           this.callAPI(tries + 1);
         } else {
           this.setState({ apiResponse: res });
@@ -34,10 +34,10 @@ export default class App extends React.Component {
 
   handleSubmit(event) {
     const input = this.input.current.value;
-    const hanguel = this.state.apiResponse.hanguel;
+    const romanisation = this.state.apiResponse.romanisation;
     event.preventDefault();
 
-    if (input === hanguel) {
+    if (input === romanisation) {
       this.correctAnswer();
     } else {
       this.incorrectAnswer();
@@ -63,9 +63,7 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p>
-            {this.state.apiResponse.type}: {this.state.apiResponse.character}
-          </p>
+          <p>{this.state.apiResponse.hanguel}</p>
           <form ref={this.form} onSubmit={e => this.handleSubmit(e)}>
             <input type="text" ref={this.input} />
             <input type="submit" value="submit" />
