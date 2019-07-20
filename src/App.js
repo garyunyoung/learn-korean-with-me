@@ -16,10 +16,20 @@ export default class App extends React.Component {
     this.callAPI();
   }
 
-  callAPI() {
+  callAPI(tries = 0) {
+    if (tries > 4) {
+      return;
+    }
+
     fetch("http://localhost:9000/testAPI")
       .then(res => res.json())
-      .then(res => this.setState({ apiResponse: res }));
+      .then(res => {
+        if (this.state.apiResponse.character === res.character) {
+          this.callAPI(tries + 1);
+        } else {
+          this.setState({ apiResponse: res });
+        }
+      });
   }
 
   handleSubmit(event) {
@@ -27,10 +37,10 @@ export default class App extends React.Component {
     const hanguel = this.state.apiResponse.hanguel;
     event.preventDefault();
 
-    if (input !== hanguel) {
-      this.incorrectAnswer();
-    } else {
+    if (input === hanguel) {
       this.correctAnswer();
+    } else {
+      this.incorrectAnswer();
     }
   }
 
@@ -40,9 +50,6 @@ export default class App extends React.Component {
     });
     this.form.current.reset();
     this.callAPI();
-
-    // if apiResponse.alphabet === prev.apiResponse.alphabet 
-    // callAPI()
   }
 
   incorrectAnswer() {
