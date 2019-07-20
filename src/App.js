@@ -6,7 +6,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       apiResponse: "",
-      answerFeedback: ""
+      answerFeedback: "",
+      counter: 0
     };
     this.input = React.createRef();
     this.form = React.createRef();
@@ -45,8 +46,11 @@ export default class App extends React.Component {
   }
 
   correctAnswer() {
-    this.setState({
-      answerFeedback: "Correct!"
+    this.setState((prevState, _props) => {
+      return {
+        answerFeedback: "Correct!",
+        counter: prevState.counter + 1
+      };
     });
     this.form.current.reset();
     this.callAPI();
@@ -54,7 +58,8 @@ export default class App extends React.Component {
 
   incorrectAnswer() {
     this.setState({
-      answerFeedback: "Incorrect answer, try again :)"
+      answerFeedback: "Incorrect answer, try again :)",
+      counter: 0
     });
     this.form.current.reset();
   }
@@ -69,6 +74,7 @@ export default class App extends React.Component {
             <input type="submit" value="submit" />
           </form>
           <p>{this.state.answerFeedback}</p>
+          <p>streak: {this.state.counter}</p>
         </header>
       </div>
     );
