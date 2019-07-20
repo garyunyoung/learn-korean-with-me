@@ -4,19 +4,23 @@ var router = express.Router();
 const alphabet = [
   {
     character: "ᄈ",
-    hanguel: "bb"
+    hanguel: "bb",
+    type: "consonant"
   },
   {
     character: "ᄊ",
-    hanguel: "ss"
+    hanguel: "ss",
+    type: "consonant"
   },
   {
     character: "ᅡ",
-    hanguel: "a"
+    hanguel: "a",
+    type: "vowel"
   },
   {
     character: "ᄅ",
-    hanguel: "r/l"
+    hanguel: "r/l",
+    type: "consonant"
   }
 ];
 
