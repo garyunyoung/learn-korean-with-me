@@ -8,6 +8,7 @@ export default class App extends React.Component {
       apiResponse: ""
     };
     this.input = React.createRef();
+    this.form = React.createRef();
   }
 
   componentWillMount() {
@@ -21,9 +22,26 @@ export default class App extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.input.current.value);
+    const input = this.input.current.value;
+    const hanguel = this.state.apiResponse.hanguel;
     event.preventDefault();
-    document.querySelector(".form").reset();
+
+    if (input !== hanguel) {
+      this.incorrectAnswer();
+    } else {
+      this.correctAnswer();
+    }
+  }
+
+  correctAnswer() {
+    console.log("Correct!");
+    this.form.current.reset();
+    this.callAPI();
+  }
+
+  incorrectAnswer() {
+    console.log("Incorrect answer, try again :)");
+    this.form.current.reset();
   }
 
   render() {
@@ -33,11 +51,10 @@ export default class App extends React.Component {
           <p>
             {this.state.apiResponse.type}: {this.state.apiResponse.character}
           </p>
-          <form className="form" onSubmit={e => this.handleSubmit(e)}>
+          <form ref={this.form} onSubmit={e => this.handleSubmit(e)}>
             <input type="text" ref={this.input} />
             <input type="submit" value="submit" />
           </form>
-          <button onClick={() => this.callAPI()}>fetch</button>
         </header>
       </div>
     );
