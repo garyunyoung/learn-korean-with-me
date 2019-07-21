@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.scss";
-import { throwStatement } from "@babel/types";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -99,6 +98,7 @@ export default class App extends React.Component {
           <p>{this.state.answerFeedback}</p>
           <p>streak: {this.state.counter}</p>
           <Cheatsheet
+            cheatsheet={this.state.cheatsheet}
             isOpen={this.state.cheatsheetIsOpen}
             openCheatsheet={() => this.openCheatsheet()}
             closeCheatsheet={() => this.closeCheatsheet()}
@@ -124,6 +124,16 @@ export function Cheatsheet(props) {
         <button className="close-cheatsheet" onClick={props.closeCheatsheet}>
           close
         </button>
+
+        {props.cheatsheet.map(char => {
+          return (
+            <ul>
+              <li>{char.hanguel}</li>
+              <li>{char.romanisation}</li>
+            </ul>
+          );
+        })}
+        
       </div>
     );
   }
