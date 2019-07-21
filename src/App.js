@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.scss";
+import { throwStatement } from "@babel/types";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -80,7 +81,12 @@ export default class App extends React.Component {
     this.setState({
       cheatsheetIsOpen: true
     });
-    // this.callCheatsheet();
+  }
+
+  closeCheatsheet() {
+    this.setState({
+      cheatsheetIsOpen: false
+    });
   }
 
   render() {
@@ -94,8 +100,16 @@ export default class App extends React.Component {
           </form>
           <p>{this.state.answerFeedback}</p>
           <p>streak: {this.state.counter}</p>
-          <button className="cheatsheet-button" onClick={() => this.openCheatsheet()}>cheatsheet</button>
-          <Cheatsheet isOpen={this.state.cheatsheetIsOpen} />
+          <button
+            className="open-cheatsheet"
+            onClick={() => this.openCheatsheet()}
+          >
+            cheatsheet
+          </button>
+          <Cheatsheet
+            isOpen={this.state.cheatsheetIsOpen}
+            closeCheatsheet={() => this.closeCheatsheet()}
+          />
         </header>
       </div>
     );
@@ -108,7 +122,9 @@ export function Cheatsheet(props) {
     return (
       <div>
         <h1>Cheatsheet</h1>
-        <button>close</button>
+        <button className="close-cheatsheet" onClick={props.closeCheatsheet}>
+          close
+        </button>
       </div>
     );
   } else {

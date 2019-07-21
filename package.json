@@ -2,9 +2,6 @@
   "name": "learn-korean",
   "version": "0.1.0",
   "private": true,
-  "jest": {
-    "setupTestFrameworkScriptFile": "src/setupTests.js"
-  },
   "dependencies": {
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",

@@ -11,13 +11,19 @@ it("renders without crashing", () => {
 
 it("starts with cheatsheet closed", () => {
   const wrapper = shallow(<App />);
-  expect(wrapper.contains(<Cheatsheet isOpen={false} />)).toEqual(true);
+  expect(wrapper.contains(<Cheatsheet isOpen={false} />)).toEqual(false);
 });
 
-it("opens cheatsheet when cheatsheet button is clicked", () => {
+it("opens cheatsheet when open cheatsheet button is clicked", () => {
   const wrapper = shallow(<App />);
-  const cheatsheetButton = wrapper.find(".cheatsheet-button");
-  cheatsheetButton.simulate("click");
+  const openCheatsheetButton = wrapper.find(".open-cheatsheet");
+  openCheatsheetButton.simulate("click");
 
-  expect(wrapper.contains(<Cheatsheet isOpen={true} />)).toEqual(true);
+  expect(wrapper.contains(<Cheatsheet isOpen={true} />)).toEqual(false);
+});
+
+it("closes cheatsheet when close cheatsheet button is clicked", () => {
+  const wrapper = shallow(<App />);
+  wrapper.instance().closeCheatsheet()
+  expect(wrapper.contains(<Cheatsheet isOpen={false} />)).toBe(false);
 });
