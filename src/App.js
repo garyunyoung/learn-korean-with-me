@@ -34,9 +34,7 @@ export default class App extends React.Component {
           this.setState({ apiResponse: res });
         }
       });
-  }
 
-  callCheatsheet() {
     fetch("http://localhost:9000/cheatsheet")
       .then(res => res.json())
       .then(res => {
@@ -100,14 +98,9 @@ export default class App extends React.Component {
           </form>
           <p>{this.state.answerFeedback}</p>
           <p>streak: {this.state.counter}</p>
-          <button
-            className="open-cheatsheet"
-            onClick={() => this.openCheatsheet()}
-          >
-            cheatsheet
-          </button>
           <Cheatsheet
             isOpen={this.state.cheatsheetIsOpen}
+            openCheatsheet={() => this.openCheatsheet()}
             closeCheatsheet={() => this.closeCheatsheet()}
           />
         </header>
@@ -118,7 +111,13 @@ export default class App extends React.Component {
 
 export function Cheatsheet(props) {
   const isOpen = props.isOpen;
-  if (isOpen) {
+  if (!isOpen) {
+    return (
+      <button className="open-cheatsheet" onClick={props.openCheatsheet}>
+        cheatsheet
+      </button>
+    );
+  } else {
     return (
       <div>
         <h1>Cheatsheet</h1>
@@ -127,7 +126,5 @@ export function Cheatsheet(props) {
         </button>
       </div>
     );
-  } else {
-    return null;
   }
 }

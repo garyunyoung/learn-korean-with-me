@@ -16,14 +16,13 @@ it("starts with cheatsheet closed", () => {
 
 it("opens cheatsheet when open cheatsheet button is clicked", () => {
   const wrapper = shallow(<App />);
-  const openCheatsheetButton = wrapper.find(".open-cheatsheet");
-  openCheatsheetButton.simulate("click");
+  wrapper.instance().openCheatsheet();
 
   expect(wrapper.contains(<Cheatsheet isOpen={true} />)).toEqual(false);
 });
 
 it("closes cheatsheet when close cheatsheet button is clicked", () => {
   const wrapper = shallow(<App />);
-  wrapper.instance().closeCheatsheet()
+  wrapper.instance().closeCheatsheet();
   expect(wrapper.contains(<Cheatsheet isOpen={false} />)).toBe(false);
 });
