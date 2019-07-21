@@ -7,8 +7,9 @@ export default class App extends React.Component {
     this.state = {
       apiResponse: "",
       answerFeedback: "",
-      counter: 0,
-      cheatsheet: "",
+      correctAnswerCounter: 0,
+      incorrectAnswerCounter: 0,
+      cheatsheet: [],
       cheatsheetIsOpen: false
     };
     this.input = React.createRef();
@@ -37,9 +38,7 @@ export default class App extends React.Component {
     fetch("http://localhost:9000/cheatsheet")
       .then(res => res.json())
       .then(res => {
-        {
-          this.setState({ cheatsheet: res });
-        }
+        this.setState({ cheatsheet: res });
       });
   }
 
@@ -59,7 +58,9 @@ export default class App extends React.Component {
     this.setState((prevState, _props) => {
       return {
         answerFeedback: "Correct!",
-        counter: prevState.counter + 1
+        correctAnswerCounter: prevState.correctAnswerCounter + 1,
+        incorrectAnswerCounter: 0,
+        cheatsheetIsOpen: false
       };
     });
     this.form.current.reset();
@@ -67,9 +68,12 @@ export default class App extends React.Component {
   }
 
   incorrectAnswer() {
-    this.setState({
-      answerFeedback: "Incorrect answer, try again :)",
-      counter: 0
+    this.setState((prevState, _props) => {
+      return {
+        answerFeedback: "Incorrect answer, try again :)",
+        correctAnswerCounter: prevState.correctAnswerCounter - 1,
+        incorrectAnswerCounter: prevState.incorrectAnswerCounter + 1
+      };
     });
     this.form.current.reset();
   }
@@ -77,12 +81,6 @@ export default class App extends React.Component {
   openCheatsheet() {
     this.setState({
       cheatsheetIsOpen: true
-    });
-  }
-
-  closeCheatsheet() {
-    this.setState({
-      cheatsheetIsOpen: false
     });
   }
 
@@ -96,12 +94,12 @@ export default class App extends React.Component {
             <input type="submit" value="submit" />
           </form>
           <p>{this.state.answerFeedback}</p>
-          <p>streak: {this.state.counter}</p>
+          <p>streak: {this.state.correctAnswerCounter}</p>
           <Cheatsheet
             cheatsheet={this.state.cheatsheet}
             isOpen={this.state.cheatsheetIsOpen}
+            incorrectAnswerCounter={this.state.incorrectAnswerCounter}
             openCheatsheet={() => this.openCheatsheet()}
-            closeCheatsheet={() => this.closeCheatsheet()}
           />
         </header>
       </div>
@@ -111,20 +109,15 @@ export default class App extends React.Component {
 
 export function Cheatsheet(props) {
   const isOpen = props.isOpen;
-  if (!isOpen) {
-    return (
-      <button className="open-cheatsheet" onClick={props.openCheatsheet}>
-        cheatsheet
-      </button>
-    );
-  } else {
+  const openCheatsheet = props.openCheatsheet;
+  const incorrectAnswerCounter = props.incorrectAnswerCounter;
+
+  if (incorrectAnswerCounter <= 2) {
+    return null;
+  } else if (isOpen) {
     return (
       <div>
         <h1>Cheatsheet</h1>
-        <button className="close-cheatsheet" onClick={props.closeCheatsheet}>
-          close
-        </button>
-
         {props.cheatsheet.map(char => {
           return (
             <ul>
@@ -133,8 +126,13 @@ export function Cheatsheet(props) {
             </ul>
           );
         })}
-        
       </div>
+    );
+  } else {
+    return (
+      <button className="open-cheatsheet" onClick={openCheatsheet}>
+        cheatsheet
+      </button>
     );
   }
 }
