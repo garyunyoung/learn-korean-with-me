@@ -87,21 +87,20 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <p>{this.state.apiResponse.hanguel}</p>
-          <form ref={this.form} onSubmit={e => this.handleSubmit(e)}>
-            <input type="text" ref={this.input} />
-            <input type="submit" value="submit" />
-          </form>
-          <p>{this.state.answerFeedback}</p>
-          <p>streak: {this.state.correctAnswerCounter}</p>
-          <Cheatsheet
-            cheatsheet={this.state.cheatsheet}
-            isOpen={this.state.cheatsheetIsOpen}
-            incorrectAnswerCounter={this.state.incorrectAnswerCounter}
-            openCheatsheet={() => this.openCheatsheet()}
-          />
-        </header>
+        <h1>learn 한글 with me!</h1>
+        <p>{this.state.apiResponse.hanguel}</p>
+        <form ref={this.form} onSubmit={e => this.handleSubmit(e)}>
+          <input type="text" ref={this.input} autoFocus />
+          <input type="submit" value="submit" />
+        </form>
+        <p>{this.state.answerFeedback}</p>
+        <p>streak: {this.state.correctAnswerCounter}</p>
+        <Cheatsheet
+          cheatsheet={this.state.cheatsheet}
+          isOpen={this.state.cheatsheetIsOpen}
+          incorrectAnswerCounter={this.state.incorrectAnswerCounter}
+          openCheatsheet={() => this.openCheatsheet()}
+        />
       </div>
     );
   }
