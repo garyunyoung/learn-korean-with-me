@@ -9,10 +9,14 @@ router.get("/", function(req, res, next) {
     connectionString: connectionString
   });
   client.connect();
-  client.query("SELECT * FROM hanguel", (err, result) => {
-    client.end();
-    res.send(result.rows);
-  });
+  client.query(
+    // TO DO: find a more efficient way of returning a random record
+    "SELECT * FROM hanguel ORDER BY random() LIMIT 1",
+    (err, result) => {
+      client.end();
+      res.send(result.rows[0]);
+    }
+  );
 });
 
 module.exports = router;

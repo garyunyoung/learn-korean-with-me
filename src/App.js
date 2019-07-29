@@ -25,21 +25,24 @@ export default class App extends React.Component {
       return;
     }
 
-    fetch("http://localhost:9000/testAPI")
+    fetch("http://localhost:9000/hanguel")
       .then(res => res.json())
       .then(res => {
+        console.log(res)
         if (this.state.apiResponse.hanguel === res.hanguel) {
           this.callAPI(tries + 1);
         } else {
           this.setState({ apiResponse: res });
         }
-      });
+      })
+      .catch(err => console.error(err));
 
     fetch("http://localhost:9000/cheatsheet")
       .then(res => res.json())
       .then(res => {
         this.setState({ cheatsheet: res });
-      });
+      })
+      .catch(err => console.error(err));
   }
 
   handleSubmit(event) {
