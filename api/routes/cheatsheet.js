@@ -1,9 +1,18 @@
 var express = require("express");
 var router = express.Router();
-var alphabet = require("../public/javascripts/hanguel.js");
+const { Client } = require("pg");
+const connectionString = "postgresql://postgres@localhost:5432/hanguel";
 
 router.get("/", function(req, res, next) {
-  res.send(alphabet);
+  const client = new Client({
+    connectionString: connectionString
+  });
+  client.connect();
+  client.query("SELECT * FROM hanguel", (err, result) => {
+    console.log(result);
+    client.end();
+    res.send(result.rows);
+  });
 });
 
 module.exports = router;
