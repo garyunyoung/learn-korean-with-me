@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default class App extends React.Component {
+export default class Learn extends React.Component {
   render() {
     return (
       <div>
-        <h1>learn</h1>
+        <h1>learn category</h1>
         <ul>
           <li>
             <Link to="/learn/chat">Vowels</Link>

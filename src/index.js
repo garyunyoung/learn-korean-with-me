@@ -6,8 +6,8 @@ import App from "./App";
 import Learn from "./components/learn";
 import Chat from "./components/chat";
 import Play from "./components/play";
+import Game from "./components/game";
 import "./index.css";
-
 
 ReactDOM.render(
   <Router>
@@ -15,6 +15,7 @@ ReactDOM.render(
     <Route exact path="/learn" component={Learn} />
     <Route exact path="/learn/chat" component={Chat} />
     <Route exact path="/play" component={Play} />
+    <Route exact path="/play/game" component={Game} />
   </Router>,
   document.getElementById("root")
 );
