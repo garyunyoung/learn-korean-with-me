@@ -98,7 +98,14 @@ export default class Game extends React.Component {
         </form>
         <p>{this.state.answerFeedback}</p>
         <p>streak: {this.state.correctAnswerCounter}</p>
-        <Link to="/">Home</Link>
+        <ul>
+          <li>
+            <Link to="/play">Back</Link>
+          </li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+        </ul>
         <Cheatsheet
           cheatsheet={this.state.cheatsheet}
           isOpen={this.state.cheatsheetIsOpen}

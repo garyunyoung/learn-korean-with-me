@@ -10,7 +10,13 @@ export default class Learn extends React.Component {
         <img src={octopus} width="100" />
         <ul>
           <li>
-            <Link to="/play/game">Vowels</Link>
+            <Link to="/play/game">Alphabet</Link>
+          </li>
+          <li>
+            <Link to="/play/game">Greetings</Link>
+          </li>
+          <li>
+            <Link to="/play/game">Songs</Link>
           </li>
           <li>
             <Link to="/">Home</Link>

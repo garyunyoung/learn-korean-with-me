@@ -13,6 +13,12 @@ export default class Learn extends React.Component {
             <Link to="/learn/chat">Vowels</Link>
           </li>
           <li>
+            <Link to="/learn/chat">Cosonants</Link>
+          </li>
+          <li>
+            <Link to="/learn/chat">Greetings</Link>
+          </li>
+          <li>
             <Link to="/">Home</Link>
           </li>
         </ul>
