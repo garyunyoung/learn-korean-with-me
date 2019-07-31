@@ -9,9 +9,9 @@ export default class Chat extends React.Component {
         <h1>chat</h1>
         <div className="chat-box">
           <div className="chat-bot">
-            <div className="chat-bot-response">chat response one</div>
-            <div className="chat-bot-response">chat response two</div>
-            <div className="chat-bot-response">chat response three</div>
+            <ChatbotResponse />
+            <ChatbotResponse />
+            <ChatbotResponse />
           </div>
           <div className="user">
             <div className="user-response">user response one</div>
@@ -29,4 +29,13 @@ export default class Chat extends React.Component {
       </div>
     );
   }
+}
+
+function ChatbotResponse() {
+  return (
+    <div className="chat-bot-response">
+      <div className="chat-bot-profile-pic" />
+      chat response one
+    </div>
+  );
 }

@@ -11,6 +11,23 @@
   text-align: left;
 }
 
+.chat-bot-response {
+  display: flex;
+}
+
+.chat-bot-profile-pic {
+  height: 20px;
+  width: 20px;
+  border-radius: 25px;
+  border: 2px solid black;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-image: url("../images/turtle.svg");
+  background-size: 120%;
+  background-position: -7px;
+  background-repeat: no-repeat;
+}
+
 .user {
   border-top: 1px solid grey;
 }
