@@ -2,14 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
-import Play from "./components/play";
 import App from "./App";
+import Learn from "./components/learn";
+import Chat from "./components/chat";
+import Play from "./components/play";
 import "./index.css";
 
 
 ReactDOM.render(
   <Router>
     <Route exact path="/" component={App} />
+    <Route exact path="/learn" component={Learn} />
+    <Route exact path="/learn/chat" component={Chat} />
     <Route exact path="/play" component={Play} />
   </Router>,
   document.getElementById("root")
