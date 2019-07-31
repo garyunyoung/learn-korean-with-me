@@ -26,3 +26,12 @@ it("closes cheatsheet when close cheatsheet button is clicked", () => {
   wrapper.instance().closeCheatsheet();
   expect(wrapper.contains(<Cheatsheet isOpen={false} />)).toBe(false);
 });
+
+
+// CHATBOT TEST
+// it("shows user input option when user input is required", () => {
+//   const wrapper = shallow(<Chat />);
+//   wrapper.instance().showUpserInput();
+
+//   expect(wrapper.contains(<UserInput isVisible={true} />)).toEqual(true);
+// });

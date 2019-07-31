@@ -13,10 +13,14 @@ export default class Learn extends React.Component {
             <Link to="/play/game">Alphabet</Link>
           </li>
           <li>
-            <Link to="/play/game">Greetings</Link>
+            <Link to="/play/game" className="locked">
+              Greetings
+            </Link>
           </li>
           <li>
-            <Link to="/play/game">Songs</Link>
+            <Link to="/play/game" className="locked">
+              Songs
+            </Link>
           </li>
           <li>
             <Link to="/">Home</Link>
