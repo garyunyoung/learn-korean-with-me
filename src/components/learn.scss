@@ -1,0 +1,13 @@
+.locked {
+  position: relative;
+    text-decoration: line-through;
+
+  &::after {
+    position: absolute;
+    content: "";
+    right: -25px;
+    width: 1em;
+    height: 1em;
+    background-image: url("../images/lock.svg");
+  }
+}

@@ -7,7 +7,7 @@ export default class Learn extends React.Component {
     return (
       <div>
         <h1>play category</h1>
-        <img src={octopus} width="100" />
+        <img src={octopus} width="100" alt="octopus" />
         <ul>
           <li>
             <Link to="/play/game">Alphabet</Link>

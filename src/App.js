@@ -8,7 +8,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>learn 한글 with me!</h1>
-          <img src={turtle} width="150" />
+        <img src={turtle} width="150" alt="turtle" />
         <ul>
           <li>
             <Link to="/learn">Learn</Link>

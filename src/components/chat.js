@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import "./chat.scss";
 
 export default class Chat extends React.Component {
+  constructor(props) {
+    super();
+  }
+
   render() {
     return (
       <div>
