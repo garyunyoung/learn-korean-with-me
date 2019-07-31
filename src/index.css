@@ -24,5 +24,24 @@ ul {
 
 li {
   list-style: none;
-  padding-left: 1.25rem;
+  margin: .5em 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+ color: black;
+}
+
+p,
+h1,
+ul,
+li {
+  color: black;
+}
+
+input {
+  border: 1px dashed black;
 }
