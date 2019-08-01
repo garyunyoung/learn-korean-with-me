@@ -10,12 +10,27 @@ export default class Chat extends React.Component {
       response: chatbotData,
       renderedResponse: [],
       user: false,
-      input: ""
+      input: "",
+      end: false
     };
   }
 
   componentDidMount() {
     this.renderResponse();
+  }
+
+  handleInputData = event => {
+    this.setState({ input: event.target.value });
+  };
+
+  handleSubmit(e) {
+    this.setState(prevState => {
+      return {
+        renderedResponse: [...prevState.renderedResponse, prevState.input]
+      };
+    });
+    this.nextStep();
+    e.preventDefault();
   }
 
   nextStep() {
@@ -25,25 +40,27 @@ export default class Chat extends React.Component {
 
       return {
         step: nextStep,
-        user: prevState.response[nextStep].user
+        user: prevState.response[nextStep].user,
+        end: prevState.response[nextStep].end
       };
     });
     this.renderResponse();
+    this.endChat();
   }
 
   renderResponse() {
     this.setState(prevState => {
       const response = chatbotData[prevState.step].response;
-
       return {
         renderedResponse: [...prevState.renderedResponse, response]
       };
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.nextStep();
+  endChat() {
+    if (this.state.end === true) {
+      this.setState({ renderedResponse: [] });
+    }
   }
 
   render() {
@@ -65,7 +82,7 @@ export default class Chat extends React.Component {
             {this.state.user ? (
               <div>
                 <form onSubmit={e => this.handleSubmit(e)}>
-                  <input type="text" />
+                  <input type="text" onChange={this.handleInputData} />
                   <input type="submit" value="submit" />
                 </form>
               </div>
@@ -112,17 +129,21 @@ const chatbotData = [
   {
     step: 4,
     response: "i am great! ... what is your name?",
-    user: true,
-    input: []
+    user: true
   },
   {
     step: 5,
+    response: "nice to meet you!",
+    user: false
+  },
+  {
+    step: 6,
     response: "would you like to keep chatting?",
     user: false,
     options: [{ option: "yes", step: 0 }, { option: "no", step: 6 }]
   },
   {
-    step: 6,
+    step: 7,
     response: "bye!",
     user: false,
     end: true

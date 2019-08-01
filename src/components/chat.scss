@@ -15,6 +15,10 @@
   display: flex;
 }
 
+.chat-bot-response--right {
+  flex-flow: row-reverse;
+}
+
 .chat-bot-profile-pic {
   height: 20px;
   width: 20px;
