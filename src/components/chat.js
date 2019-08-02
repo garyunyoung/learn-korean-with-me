@@ -1,15 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./chat.scss";
+import { throwStatement } from "@babel/types";
 
 export default class Chat extends React.Component {
   constructor(props) {
     super();
     this.state = {
       step: 0,
+      previousStep: [],
       response: chatbotData,
       renderedResponse: [],
-      user: false,
+      user: "",
       input: "",
       end: false
     };
@@ -17,20 +19,6 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
     this.renderResponse();
-  }
-
-  handleInputData = event => {
-    this.setState({ input: event.target.value });
-  };
-
-  handleSubmit(e) {
-    this.setState(prevState => {
-      return {
-        renderedResponse: [...prevState.renderedResponse, prevState.input]
-      };
-    });
-    this.nextStep();
-    e.preventDefault();
   }
 
   nextStep() {
@@ -50,11 +38,28 @@ export default class Chat extends React.Component {
 
   renderResponse() {
     this.setState(prevState => {
-      const response = chatbotData[prevState.step].response;
+      const response = chatbotData[prevState.step];
       return {
         renderedResponse: [...prevState.renderedResponse, response]
       };
     });
+  }
+
+  handleInputData = event => {
+    this.setState({ input: event.target.value });
+  };
+
+  handleSubmit(e) {
+    this.setState(prevState => {
+      return {
+        renderedResponse: [
+          ...prevState.renderedResponse,
+          { user: true, response: prevState.input }
+        ]
+      };
+    });
+    this.nextStep();
+    e.preventDefault();
   }
 
   endChat() {
@@ -70,16 +75,25 @@ export default class Chat extends React.Component {
         <div className="chat-box">
           <div className="chat-bot">
             {this.state.renderedResponse.map(response => {
-              return (
-                <div className="chat-bot-response">
-                  <div className="chat-bot-profile-pic" />
-                  {response}
-                </div>
-              );
+              if (response.user === "" || response.user === "input" ) {
+                return (
+                  <div className="chat-bot-response">
+                    <div className="chat-bot-profile-pic" />
+                    {response.response}
+                  </div>
+                );
+              } else {
+                return (
+                  <div className="chat-bot-response chat-bot-response--right">
+                    <div className="chat-bot-profile-pic" />
+                    {response.response}
+                  </div>
+                );
+              }
             })}
           </div>
           <div className="user">
-            {this.state.user ? (
+            {this.state.user === "input" ? (
               <div>
                 <form onSubmit={e => this.handleSubmit(e)}>
                   <input type="text" onChange={this.handleInputData} />
@@ -87,7 +101,11 @@ export default class Chat extends React.Component {
                 </form>
               </div>
             ) : (
-              <button onClick={() => this.nextStep()}>next</button>
+              <button onClick={() => this.nextStep()}>
+                {this.state.user
+                  ? `${this.state.response[this.state.step].response}`
+                  : "next"}
+              </button>
             )}
           </div>
         </div>
@@ -108,44 +126,43 @@ export default class Chat extends React.Component {
 const chatbotData = [
   {
     step: 0,
-    response: "hello!",
-    user: false
+    response: "chat-bot: hello!",
+    user: ""
   },
   {
     step: 1,
-    response: "how are you?",
-    user: false
+    response: "chat-bot:how are you?",
+    user: ""
   },
   {
     step: 2,
     response: "user: i am great, thanks",
-    user: false
+    user: "option"
   },
   {
     step: 3,
     response: "user: you?",
-    user: false
+    user: "option"
   },
   {
     step: 4,
-    response: "i am great! ... what is your name?",
-    user: true
+    response: "chat-bot: i am great! ... what is your name?",
+    user: "input"
   },
   {
     step: 5,
-    response: "nice to meet you!",
-    user: false
+    response: "chat-bot: nice to meet you!",
+    user: ""
   },
   {
     step: 6,
-    response: "would you like to keep chatting?",
-    user: false,
-    options: [{ option: "yes", step: 0 }, { option: "no", step: 6 }]
+    response: "chat-bot: would you like to keep chatting?",
+    user: ""
   },
   {
     step: 7,
-    response: "bye!",
-    user: false,
+    response: "chat-bot: bye!",
+    user: "",
     end: true
   }
 ];
