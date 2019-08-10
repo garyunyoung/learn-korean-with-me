@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./chat.scss";
-import { throwStatement } from "@babel/types";
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -12,37 +11,12 @@ export default class Chat extends React.Component {
       response: chatbotData,
       renderedResponse: [],
       user: "",
-      input: "",
-      end: false
+      input: ""
     };
   }
 
   componentDidMount() {
-    this.renderResponse();
-  }
-
-  nextStep() {
-    this.setState(prevState => {
-      const nextStep =
-        prevState.step < prevState.response.length - 1 ? prevState.step + 1 : 0;
-
-      return {
-        step: nextStep,
-        user: prevState.response[nextStep].user,
-        end: prevState.response[nextStep].end
-      };
-    });
-    this.renderResponse();
-    this.endChat();
-  }
-
-  renderResponse() {
-    this.setState(prevState => {
-      const response = chatbotData[prevState.step];
-      return {
-        renderedResponse: [...prevState.renderedResponse, response]
-      };
-    });
+    this.nextStep();
   }
 
   handleInputData = event => {
@@ -50,21 +24,42 @@ export default class Chat extends React.Component {
   };
 
   handleSubmit(e) {
-    this.setState(prevState => {
-      return {
-        renderedResponse: [
-          ...prevState.renderedResponse,
-          { user: true, response: prevState.input }
-        ]
-      };
-    });
     this.nextStep();
     e.preventDefault();
   }
 
-  endChat() {
-    if (this.state.end === true) {
-      this.setState({ renderedResponse: [] });
+  nextStep() {
+    this.renderResponse();
+    this.setState(prevState => {
+      const nextStep =
+        prevState.step < prevState.response.length - 1
+          ? prevState.step + 1
+          : null;
+
+      return {
+        step: nextStep,
+        user: prevState.response[nextStep].user
+      };
+    });
+  }
+
+  renderResponse() {
+    if (this.state.user === "input") {
+      this.setState(prevState => {
+        return {
+          renderedResponse: [
+            ...prevState.renderedResponse,
+            { user: true, response: prevState.input }
+          ]
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        const response = chatbotData[prevState.step];
+        return {
+          renderedResponse: [...prevState.renderedResponse, response]
+        };
+      });
     }
   }
 
@@ -75,7 +70,7 @@ export default class Chat extends React.Component {
         <div className="chat-box">
           <div className="chat-bot">
             {this.state.renderedResponse.map(response => {
-              if (response.user === "" || response.user === "input" ) {
+              if (!response.user) {
                 return (
                   <div className="chat-bot-response">
                     <div className="chat-bot-profile-pic" />
@@ -126,13 +121,11 @@ export default class Chat extends React.Component {
 const chatbotData = [
   {
     step: 0,
-    response: "chat-bot: hello!",
-    user: ""
+    response: "chat-bot: hello!"
   },
   {
     step: 1,
-    response: "chat-bot:how are you?",
-    user: ""
+    response: "chat-bot:how are you?"
   },
   {
     step: 2,
@@ -146,23 +139,28 @@ const chatbotData = [
   },
   {
     step: 4,
-    response: "chat-bot: i am great! ... what is your name?",
-    user: "input"
+    response: "chat-bot: i am great! ... what is your name?"
   },
   {
     step: 5,
-    response: "chat-bot: nice to meet you!",
-    user: ""
+    response: "",
+    user: "input"
   },
   {
     step: 6,
-    response: "chat-bot: would you like to keep chatting?",
-    user: ""
+    response: "chat-bot: nice to meet you!"
   },
   {
     step: 7,
-    response: "chat-bot: bye!",
-    user: "",
-    end: true
+    response: "chat-bot: would you like to keep chatting?"
+  },
+  {
+    step: 8,
+    response: "no sorry",
+    user: "option"
+  },
+  {
+    step: 9,
+    response: "chat-bot: bye!"
   }
 ];
