@@ -30,15 +30,22 @@ export default class Chat extends React.Component {
 
   nextStep() {
     this.renderResponse();
+
     this.setState(prevState => {
       const nextStep =
         prevState.step < prevState.response.length - 1
           ? prevState.step + 1
           : null;
 
+      const user = prevState.response[nextStep].user;
+
+      if (user === "") {
+        setTimeout(() => this.nextStep(), 2000);
+      }
+
       return {
         step: nextStep,
-        user: prevState.response[nextStep].user
+        user: user
       };
     });
   }
@@ -121,11 +128,13 @@ export default class Chat extends React.Component {
 const chatbotData = [
   {
     step: 0,
-    response: "chat-bot: hello!"
+    response: "chat-bot: hello!",
+    user: ""
   },
   {
     step: 1,
-    response: "chat-bot:how are you?"
+    response: "chat-bot:how are you?",
+    user: ""
   },
   {
     step: 2,
@@ -139,7 +148,8 @@ const chatbotData = [
   },
   {
     step: 4,
-    response: "chat-bot: i am great! ... what is your name?"
+    response: "chat-bot: i am great! ... what is your name?",
+    user: ""
   },
   {
     step: 5,
@@ -148,11 +158,13 @@ const chatbotData = [
   },
   {
     step: 6,
-    response: "chat-bot: nice to meet you!"
+    response: "chat-bot: nice to meet you!",
+    user: ""
   },
   {
     step: 7,
-    response: "chat-bot: would you like to keep chatting?"
+    response: "chat-bot: would you like to keep chatting?",
+    user: ""
   },
   {
     step: 8,
@@ -161,6 +173,7 @@ const chatbotData = [
   },
   {
     step: 9,
-    response: "chat-bot: bye!"
+    response: "chat-bot: bye!",
+    user: ""
   }
 ];
