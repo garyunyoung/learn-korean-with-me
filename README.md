@@ -1,15 +1,21 @@
-## Learn Korean With Me ##
+# Learn Korean With Me
 
 Learn Korean With Me is a language learning web application. 
 
 This project was inspired by my interest in learning more about working with a database (PostgreSQL & SQL) along with my interest in learning a new language (Korean). 
 
-### Key Features: ##
+## Key Features
 Currently, this project consists of: 
 - A chat bot feature which guides users through the process of learning new words.
 - A game quiz feature which allows users to test their knowledge. 
 
-### Future Developments: ##
+## Tech Stack
+- React
+- PostgreSQL
+- Express 
+- SCSS
+
+## Future Developments
 I intend to use this project to practice new languages and techniques - in particular:
 - Typescript.
 - React Hooks.
@@ -19,5 +25,3 @@ I intend to use this project to practice new languages and techniques - in parti
 I also intend to implement a points-based system in the quiz feature.
 
 In time, I would love to convert this application to a React Native iOS application!
-
-**Created using:** React, PostgreSQL, Express and SCSS. 
